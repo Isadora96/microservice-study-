@@ -1,0 +1,81 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Coverage
+lib-cov
+coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+
+# dotenv environment variables file
+.env
+.travis/env/
+.travis/env.tar
+
+# auth public key
+server/lib/auth/keys/jwt_public.pem
+# local ssl keys
+server/lib/auth/keys/cert.pem
+server/lib/auth/keys/key.pem
+# ConfigMaps
+server/lib/resources/languages.json
+server/lib/resources/countries.json
+server/lib/resources/features.json
+server/lib/resources/lbu-webapp.json
+# contract types secret
+server/lib/resources/contract_types.json
+# compiled output
+/dist
+/tmp
+/out-tsc
+public
+
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+docker-run.sh
+
+angular/.angular/cache/*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# External Files
+server/temp/*
+!server/temp/.keep
+
+# misc
+npm-debug.log
+docker-run.sh
