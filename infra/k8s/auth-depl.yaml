@@ -5,17 +5,17 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLables:
+    matchLabels:
       app: auth
-    template:
-      metadata:
-        lables:
-          app: auth
-      spec:
-        containers:
-          - name: auth
-            image: auth
-            imagePullPolicy: Never
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: auth
+        imagePullPolicy: Never
 ---
 apiVersion: v1
 kind: Service
