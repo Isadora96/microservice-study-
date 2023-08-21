@@ -20,6 +20,8 @@ router.post('/api/users/signup', [
     if(!errors.isEmpty()) {
         throw new RequestValidationError(errors.array());
     }
+
+    throw new DatabaseConnectionError();
     
     const { email, password } = req.body;
 
