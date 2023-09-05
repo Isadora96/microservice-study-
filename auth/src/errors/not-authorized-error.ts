@@ -9,7 +9,7 @@ export class NotAuthorizedError extends CustomError {
         Object.setPrototypeOf(this, CustomError.prototype);
     }
 
-    serializeErrors() {
-        return [{ message: 'Not authorized!' }]
-    }
+    serializeErrors = () => {
+        return [{ message: this.message }];
+    };
 }
