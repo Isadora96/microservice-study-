@@ -10,7 +10,7 @@ const start = async () => {
     }
 
     try {
-        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
+        await mongoose.connect(`mongodb+srv://${process.env.username}:${process.env.password}@${process.env.cluster}.mongodb.net/?retryWrites=true&w=majority`);
         console.log('Connected to MongoDb');
     } catch(err) {
         console.log(err)

@@ -81,7 +81,7 @@ it('disallows duplicate emails', async () => {
             password: "password"
         })
         .expect(400)
-        .expect({});
+        .expect({ errors: [ { message: 'Email in use!' } ] });
 });
 
 it('sets a cookie after successful signup', async () => {
