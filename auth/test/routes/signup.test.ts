@@ -5,13 +5,15 @@ const invalidEmailMsg = { errors: [ { message: 'Email must be valid!', field: 'e
 const invalidPasswordMsg = { errors: [ { message: 'Password must be between 4 and 20 characters!', field: 'password' }] };
 
 it('returns a 201 on successful signup', async () => {
-    return request(app)
+    const response = await request(app)
         .post('/api/users/signup')
         .send({
             email: "test@test.com",
             password: "password"
         })
-        .expect(201);
+        .expect(201)
+
+    expect(response.body.email).toEqual('test@test.com')
 });
 
 it('returns a 400 with an invalid email', async () => {
