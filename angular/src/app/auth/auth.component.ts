@@ -14,17 +14,17 @@ export class AuthComponent {
 
   constructor (private authService: AuthService) {}
 
-  onSubmit(form: NgForm) {
+  async onSubmit(form: NgForm) {
 
     const email = form.value.email;
     const password = form.value.password;
 
-    this.authService.signUp(email, password).then(response => {
-      console.log(response.data)
-    }).catch(err => {
-      this.showErrorMessage(err.response.data.errors);
-    });
-
+    const res = await this.authService.signUp(email, password);
+    if(res instanceof Array) {
+      this.emailErrorMsg = '';
+      this.passwordErrorMsg = '';
+      this.showErrorMessage(res)
+    }
   }
 
   private showErrorMessage(message: Array<{message: string, field: string}>) {
@@ -35,6 +35,5 @@ export class AuthComponent {
           this.passwordErrorMsg = value.message
         }
       })
-
   }
 }
