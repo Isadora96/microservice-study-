@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-import axios from "axios";
+import { UseRequest } from "../shared/request/use-request";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor() {}
+    constructor(private useRequest: UseRequest) {}
 
     signUp(email: string, password: string) {
-        return axios.post('http://localhost:3000/api/users/signup', {email, password});
+        return this.useRequest.doRequest('POST', 'http://localhost:3000/api/users/signup', {email, password});
     }
 
 }
