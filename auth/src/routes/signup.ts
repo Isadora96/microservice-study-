@@ -8,7 +8,7 @@ import { BadRequestError } from "../errors/bad-request-error";
 
 const router = express.Router();
 
-router.post('/api/users/signup', [
+router.post('/api/v1/users/signup', [
     body('email')
         .isEmail()
         .withMessage('Email must be valid!'),
