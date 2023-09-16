@@ -5,10 +5,13 @@ import { UseRequest } from "../shared/request/use-request";
     providedIn: 'root'
 })
 export class AuthService {
+
+    url: string = 'http://localhost:3000/api/v1'
+
     constructor(private useRequest: UseRequest) {}
 
     signUp(email: string, password: string) {
-        return this.useRequest.doRequest('POST', 'http://localhost:3000/api/users/signup', {email, password});
+        return this.useRequest.doRequest('POST', `${this.url}/users/signin`, {email, password});
     }
 
 }
