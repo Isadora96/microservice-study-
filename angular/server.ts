@@ -6,6 +6,7 @@ import * as express from 'express';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { AppServerModule } from './src/main.server';
+import axios from 'axios';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -27,6 +28,26 @@ export function app(): express.Express {
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
+
+  server.get('/landing-page', async () => {
+    if (typeof window == 'undefined') {
+      // server
+      const { data } = await axios.get(
+        'http://ingress-nginx.ingress-nginx.svc.cluster.local/api/v1/users/currentuser',
+        {
+          headers: {
+            Host: 'ticketing.dev'
+          } 
+        }
+      );
+      console.log(data)
+      return data
+    } else {
+      const { data } = await axios.get('/api/v1/users/currentuser');
+      console.log(data)
+      return data
+    }
+  });
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
