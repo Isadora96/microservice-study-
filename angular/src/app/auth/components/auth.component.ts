@@ -27,7 +27,7 @@ export class AuthComponent {
       this.showErrorMessage(res)
       return
     }
-    this.router.navigate(['/landing-page']);
+    this.router.navigate(['/']);
   }
 
   private showErrorMessage(message: Array<{message: string, field: string}>) {
