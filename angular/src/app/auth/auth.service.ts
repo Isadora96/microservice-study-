@@ -11,7 +11,7 @@ export class AuthService {
     constructor(private useRequest: UseRequest) {}
 
     signUp(email: string, password: string) {
-        return this.useRequest.doRequest('POST', `${this.url}/users/signin`, {email, password});
+        return this.useRequest.doRequest('POST', `${this.url}/users/signup`, {email, password});
     }
 
 }

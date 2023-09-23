@@ -29,11 +29,10 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
-  server.get('/', async (context) => {
-    const client = buildClient(context);
+  server.get('/', async (req, res) => {
+    const client = buildClient(req);
     const { data } = await client.get('/api/v1/users/currentuser');
-
-    return data;
+    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }, {provide: 'data', useValue: data}] });
   });
 
   // All regular routes use the Universal engine

@@ -21,7 +21,7 @@ export class AuthComponent {
     const password = form.value.password;
 
     const res = await this.authService.signUp(email, password);
-
+    console.log(res, 'RES')
     if(res instanceof Array) {
       this.emailErrorMsg, this.passwordErrorMsg = '';
       this.showErrorMessage(res)
