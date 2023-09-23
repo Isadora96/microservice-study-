@@ -1,5 +1,6 @@
 <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-    <h1>Sign Up</h1>
+    <h1 *ngIf="isSignup">Sign Up</h1>
+    <h1 *ngIf="!isSignup">Sign In</h1>
     <div class="form-group">
         <label for="email">Email Address</label>
         <input 
@@ -30,7 +31,11 @@
             {{ passwordErrorMsg }}
         </span>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid">
-        Sign Up
+    <span *ngIf="genericMessage" style="color: red; display: block">{{ genericMessage }}</span>
+    <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid" *ngIf="isSignup">
+        Sign Up 
+    </button>
+    <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid" *ngIf="!isSignup">
+        Sign In
     </button>
 </form>

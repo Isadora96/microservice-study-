@@ -1,42 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { Router } from '@angular/router';
 
-import { AuthService } from "../auth.service";
+import { AuthResponseData, AuthService } from "../auth.service";
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
 
   emailErrorMsg: string = '';
   passwordErrorMsg: string = '';
+  genericMessage: string = '';
+  isSignup: boolean = false;
 
   constructor (private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    if(this.router.url.includes('signup')) {
+      this.isSignup = true;
+    }
+  }
 
   async onSubmit(form: NgForm) {
 
     const email = form.value.email;
     const password = form.value.password;
 
-    const res = await this.authService.signUp(email, password);
-    console.log(res, 'RES')
-    if(res instanceof Array) {
-      this.emailErrorMsg, this.passwordErrorMsg = '';
-      this.showErrorMessage(res)
-      return
+    let authObs: Promise<AuthResponseData>;
+
+    if(this.router.url.includes('signup')) {
+      authObs = this.authService.signUp(email, password);
+    } else {
+      authObs = this.authService.signIn(email, password);
     }
+    const res = (await authObs);
+
+    if(res instanceof Array) {
+        this.emailErrorMsg, this.passwordErrorMsg = '', this.genericMessage = '';
+        this.showErrorMessage(res)
+        return
+    }
+
+    form.reset();
     this.router.navigate(['/']);
   }
 
   private showErrorMessage(message: Array<{message: string, field: string}>) {
       message.forEach(value => {
-        if(value.field == 'email' || value.message.toLocaleLowerCase().includes('email')) {
+        if(value.message && !value.field) {
+          this.genericMessage = value.message
+        } else if (value.field == 'email' || value.message.toLocaleLowerCase().includes('email')) {
           this.emailErrorMsg = value.message
         } else if (value.field == 'password' || value.message.toLocaleLowerCase().includes('password')) {
           this.passwordErrorMsg = value.message
         }
-      })
+      });
   }
 }
